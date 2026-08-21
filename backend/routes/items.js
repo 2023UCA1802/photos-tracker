@@ -42,6 +42,7 @@ router.get('/folders/all', async (req, res) => {
         $group: {
           _id: '$name',
           count: { $sum: 1 },
+          totalPrice: { $sum: '$price' },
           thumbnail: { $first: '$image' },
           latestDate: { $first: '$date' },
         },
