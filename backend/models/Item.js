@@ -12,5 +12,7 @@ const itemSchema = new mongoose.Schema(
 
 // Speeds up folder lookups (grouping/filtering by name)
 itemSchema.index({ name: 1 });
+// Speeds up sorting by creation date and prevents memory limits
+itemSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model('Item', itemSchema);
