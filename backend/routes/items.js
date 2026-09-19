@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 // Get all items (flat list, rarely needed but useful for debugging)
 router.get('/', async (req, res) => {
   try {
-    const items = await Item.find().sort({ createdAt: -1 });
+    const items = await Item.find().sort({ createdAt: -1 }).allowDiskUse(true);
     res.json(items);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -48,7 +48,7 @@ router.get('/folders/all', async (req, res) => {
         },
       },
       { $sort: { _id: 1 } },
-    ]);
+    ]).allowDiskUse(true);
     res.json(folders);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -58,7 +58,7 @@ router.get('/folders/all', async (req, res) => {
 // Get all items inside one folder (i.e. all items with this name)
 router.get('/folder/:name', async (req, res) => {
   try {
-    const items = await Item.find({ name: req.params.name }).sort({ createdAt: -1 });
+    const items = await Item.find({ name: req.params.name }).sort({ createdAt: -1 }).allowDiskUse(true);
     res.json(items);
   } catch (err) {
     res.status(500).json({ error: err.message });
